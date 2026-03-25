@@ -1,77 +1,110 @@
-✈️ Airline Dynamic Pricing Machine Learning System
+# 🤖 Dynamic Pricing Algorithm for Airlines
 
-📌 Project Overview
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688.svg)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.20+-FF4B4B.svg)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Scikit--Learn%20%7C%20XGBoost-orange.svg)
 
-This project is an end-to-end Machine Learning pipeline that simulates a realistic Airline Revenue Management system. It predicts optimal flight ticket prices dynamically based on demand, seat inventory, booking velocity, and market conditions using a highly tuned XGBoost regression model.
+An end-to-end Machine Learning system designed to predict optimal airline ticket prices. This project covers the entire ML lifecycle—from generating synthetic datasets and engineering features to training a predictive model and deploying it via a REST API with an interactive dashboard.
 
-The system features a production-ready REST API backend and an interactive Streamlit frontend for real-time price simulations.
+---
 
-🏗️ System Architecture
+## 📋 Table of Contents
+- [Features](#-features)
+- [Tech Stack](#️-tech-stack)
+- [Workflow](#-workflow)
+- [Installation & Setup](#️-how-to-run-step-by-step)
+- [Project Output](#-output)
+- [License](#-license)
 
-Data Pipeline: Preprocesses synthetic airline data, handles missing values, and engineers aviation-specific features (e.g., seat_pressure, booking_velocity).
+---
 
-ML Model: Evaluated multiple models (Linear Regression, Random Forest, Gradient Boosting, XGBoost). Selected XGBoost for its superior performance ($R^2$: 0.9976).
+## 🚀 Features
+- **Predictive Modeling:** Accurately predict ticket prices based on demand, route, timing, and other key factors.
+- **Full ML Lifecycle:** Includes data preprocessing, feature engineering, and model evaluation.
+- **REST API Integration:** A fast, robust backend built to serve model predictions in real-time.
+- **Interactive Dashboard:** A user-friendly web interface to simulate real-world airline pricing and visualize trends.
+- **Explainable AI:** Model interpretability and insights into which factors drive price changes.
 
-Pricing Engine: A Python inference module that applies business logic (minimum price floors, maximum surge caps) on top of the ML predictions.
+---
 
-Backend API: Built with FastAPI to serve the pricing engine as a scalable microservice.
+## 🛠️ Tech Stack
+- **Machine Learning:** Scikit-learn, XGBoost, Joblib, SHAP
+- **Data Processing:** Pandas, NumPy
+- **Backend API:** FastAPI, Uvicorn, Pydantic, Requests
+- **Frontend / Dashboard:** Streamlit
+- **Data Visualization:** Matplotlib, Seaborn
+- **Environment:** Python, Jupyter Notebook
 
-Frontend Dashboard: Built with Streamlit to allow users to interact with the pricing engine via a web UI.
+---
 
-📊 Key Business Insights (Model Interpretability)
+## 📊 Workflow
+1. **Data Collection:** Generating/loading the dataset.
+2. **Data Cleaning:** Handling missing values and formatting data types.
+3. **Feature Engineering:** Creating meaningful variables (e.g., days to departure, seasonality).
+4. **Model Training:** Training and tuning the ML algorithms (e.g., XGBoost).
+5. **Deployment:** Serving predictions via FastAPI.
+6. **Visualization:** Consuming the API through a Streamlit frontend.
 
-Based on our SHAP analysis and Feature Importance extraction, the primary drivers of airline pricing are:
+---
 
-Competitor Pricing: The strongest anchor for our dynamic pricing.
+## ⚙️ How to Run (Step-by-Step)
 
-Days Before Departure: Prices surge exponentially within the 7-day window prior to departure.
+### 1️⃣ Clone the Repository
+```bash
+git clone [https://github.com/jeel-detroja/dynamic-pricing-airlines.git](https://github.com/jeel-detroja/dynamic-pricing-airlines.git)
+cd dynamic-pricing-airlines
+```
 
-Demand & Seat Pressure: High route popularity combined with low remaining seats triggers our model's maximum surge multipliers.
+### 2️⃣ Create and Activate a Virtual Environment (Recommended)
+- **Windows:**
+  ```bash
+  python -m venv venv
+  venv\Scripts\activate
+  ```
+- **Mac/Linux:**
+  ```bash
+  python -m venv venv
+  source venv/bin/activate
+  ```
 
-Booking Velocity: Spikes in recent bookings (last 3 days vs last 7 days) alert the model to sudden demand shifts, raising prices before inventory depletes.
+### 3️⃣ Install Dependencies
+Install all required libraries for the ML model, API, and dashboard:
+```bash
+pip install -r requirements.txt
+```
+*(Note: If you don't have a `requirements.txt` yet, you can run: `pip install pandas numpy scikit-learn matplotlib seaborn xgboost joblib fastapi uvicorn pydantic streamlit shap requests`)*
 
-🚀 How to Run the Project
-
-1. Install Dependencies
-
-pip install pandas numpy scikit-learn matplotlib seaborn xgboost joblib fastapi uvicorn pydantic streamlit shap requests
-
-
-2. Train the Model (Optional - Pre-trained model included)
-
+### 4️⃣ Train the Model (Optional)
+If you want to retrain the model from scratch (a pre-trained model is already included):
+```bash
 python models/train_model.py
+```
 
-
-3. Start the API Backend
-
-Keep this running in your terminal:
-
+### 5️⃣ Start the API Backend
+Keep this terminal window open and running. This starts the FastAPI server that serves your predictions:
+```bash
 python api/app.py
+```
+*API documentation (Swagger UI) will be available at: [http://localhost:8000/docs](http://localhost:8000/docs)*
 
-
-API documentation available at: http://localhost:8000/docs
-
-4. Launch the Interactive Dashboard
-
-Open a new terminal window and run:
-
+### 6️⃣ Launch the Interactive Dashboard
+Open a **new** terminal window (make sure your virtual environment is activated there too), and run the Streamlit app:
+```bash
 streamlit run streamlit_app.py
+```
+*The dashboard will automatically open in your default web browser.*
 
+---
 
-The UI will open in your default web browser.
+## 📈 Output
+- **Predicted Ticket Prices:** Real-time price estimations based on user inputs.
+- **Graphs and Insights:** Visual breakdowns of pricing trends, feature importance, and historical data patterns.
 
-📁 Project Structure
+---
 
-/api - FastAPI backend application
+## 📄 License
+This project is licensed under the MIT License.
 
-/data - Dataset directory
-
-/models - Training scripts and serialized .pkl models
-
-/notebooks - EDA, Model Evaluation, and SHAP interpretability scripts
-
-/outputs/plots - Generated visualizations (Feature Importance, Predicted vs Actual, SHAP)
-
-/pricing_engine - Core business logic and model inference functions
-
-streamlit_app.py - Interactive web frontend
+---
+*Built by [jeel-detroja](https://github.com/jeel-detroja)*
